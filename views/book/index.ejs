@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-light sticky-top" style="border-bottom:1px solid gray">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="">
+            <img src="/images/logo.png" alt="logo" height="40px">
+          </a>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
+
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="/lib">Home</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" style="color:tomato" aria-current="page" href="/book">Book</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="/student">Student</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="/staff">Staff</a>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Profile</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <main style="margin:10px">
+      <table class="table table-striped-columns table-hover rounded" style="border:1px solid gray;text-align: center;">
+        <tr style="color:tomato !important;" >
+          <th style="color:tomato !important;">ISBN</th>
+          <th style="color:tomato !important">Book Name</th>
+          <th style="color:tomato !important;">Author Name</th>
+          <th style="color:tomato !important">Version</th>
+          <th style="color:tomato !important;">Published Year</th>
+          <th style="color:tomato !important">Department</th>
+          <th style="color:tomato !important;">Stock</th>
+          <th style="color:tomato !important">Action</th>
+        </tr>
+        <% books.map((book)=>{ %>
+          <tr>
+            <td><%= book.ISBN %></td>
+            <td><%= book.book_name %></td>
+            <td><%= book.author_name %></td>
+            <td><%= book.version %></td>
+            <td><%= book.year %></td>
+            <td><%= book.dept%></td>
+            <td><%= book.stock%></td>
+            <td>
+              <div style="display: flex;justify-content: space-evenly;align-items: center;">
+                <form action="/book/edit" method="post">
+                  <input type="hidden" name="id" value="<%= book.id %>">
+                  <button style="border: none;background:none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square text-primary" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                  </button>
+                </form>
+  
+                <form action="/book/delete" method="post" onsubmit="return confirm('Do you Want to delete?')">
+                  <input type="hidden" name="id" value="<%= book.id %>">
+                  <button style="border: none;background:none" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3 text-danger" viewBox="0 0 16 16">
+                      <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                    </svg>
+                  </button>
+                </form>
+  
+              </div>
+            </td>
+          </tr>
+        <% }) %>
+
+      </table>
+    </main>
+
+
+    <div style="display:flex;height:50px;width:100%;position: fixed;bottom:0px;background-color: whitesmoke;border-top:1px solid gray">
+      <div style="display: flex;justify-content:flex-start;width:100%;align-items: center;margin-left: 5px;">
+        <span>Search :&ensp;</span>
+        <form action="/book" method="get">
+          <input type="text" name="ISBN" placeholder="ISBN" style="text-align:center;height:40px;width:180px;border: 1px solid gray;border-radius: 5px;">
+          <input type="text" name="book_name" placeholder="Name" style="text-align:center;height:40px;width:180px;border: 1px solid gray;border-radius: 5px;">
+          <button style="height:40px;width:180px;border: 1px solid gray;border-radius: 5px;">Search </button>
+        </form>
+      </div>
+
+      <div style="display: flex;justify-content:flex-end;width:50%">
+        <button data-bs-toggle="modal" data-bs-target="#exampleModal" style="height:100%;width:150px;color:white;background-color: tomato;border: 1px solid gray;border-radius: 5px;">Add</button>
+      </div>
+    </div>
+
+
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Book </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/book/new" method="post">
+          <div class="form-group">
+            <input type="text" required placeholder="Book Name" class="form-control" name="book_name">
+          </div><br>
+          <div class=" form-group">
+            <input type="text" required placeholder="Author Name" class="form-control" name="author_name">
+          </div><br>
+          <div class=" form-group">
+            <input type="number" required placeholder="Year" class="form-control" name="year">
+          </div><br>
+          <div class=" form-group">
+            <input type="number" required placeholder="Version" class="form-control" name="version">
+          </div><br>
+          <div class=" form-group">
+            <input type="number" required placeholder="ISBN" class="form-control" name="ISBN">
+          </div><br>
+          <div class=" form-group">
+            <input type="number" required placeholder="Stock" class="form-control" name="stock">
+          </div><br>
+          <div class=" form-group">
+            <select name="dept" required class="form-control">
+              <option value="" disabled selected>Department</option>
+              <option value="CSE">CSE</option>
+              <option value="EEE">EEE</option>
+              <option value="ECE">ECE</option>
+              <option value="Mech">Mech</option>
+            </select>
+          </div>
+
+          <br>
+          <button type="submit" class="btn " style="background:tomato;color:white;height:40px; width:100%;">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+    
+</body>
+</html>

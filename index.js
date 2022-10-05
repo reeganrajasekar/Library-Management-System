@@ -1,6 +1,12 @@
 const express = require("express")
 const app = express();
-app.use(express.static('public'))
+app.use(express.static('public'));
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/LMS', { useNewUrlParser: true });
+
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -22,9 +28,14 @@ app.get("/",(req,res)=>{
     res.render("login.ejs",{query : ""})
 })
 
+app.get("/logout" , (req,res)=>{
+    res.cookie('auth','')
+    res.redirect("/")
+})
 app.post("/",(req,res)=>{
     if(req.body.email=="try@gmail.com" && req.body.password=="try"){
-        res.render("index.ejs");
+        res.cookie('auth',true)
+        res.redirect("/lib")
     }else{
         res.render("login.ejs",{query : "Username or Password is wrong"})
     }

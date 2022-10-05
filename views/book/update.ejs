@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Admin</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    
+
+    <div class="modal  fade" id="onload"  aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog modal-fullscreen">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New Book </h5>
+              <a href="/book">
+                <button type="button" class="btn-close" ></button>
+              </a>
+            </div>
+            <div class="modal-body container">
+              <form action="/book/update" method="post" onsubmit="return confirm('Do you Want to Update?')">
+                <input type="hidden" name="id" value="<%= books.id %>">
+                <div class="form-group">
+                  <input type="text" required placeholder="Book Name" value="<%= books.book_name %>" class="form-control" name="book_name">
+                </div><br>
+                <div class=" form-group">
+                  <input type="text" required placeholder="Author Name" value="<%= books.author_name %>" class="form-control" name="author_name">
+                </div><br>
+                <div class=" form-group">
+                  <input type="number" required placeholder="Year" value="<%= books.year %>" class="form-control" name="year">
+                </div><br>
+                <div class=" form-group">
+                  <input type="number" required placeholder="Version" value="<%= books.version %>" class="form-control" name="version">
+                </div><br>
+                <div class=" form-group">
+                  <input type="number" required placeholder="ISBN" value="<%= books.ISBN %>" class="form-control" name="ISBN">
+                </div><br>
+                <div class=" form-group">
+                  <input type="number" required placeholder="Stock" value="<%= books.stock %>" class="form-control" name="stock">
+                </div><br>
+                <div class=" form-group">
+                  <select name="dept" required class="form-control" >
+                    <option value="<%= books.dept %>" selected><%= books.dept %></option>
+                    <option value="CSE">CSE</option>
+                    <option value="EEE">EEE</option>
+                    <option value="ECE">ECE</option>
+                    <option value="Mech">Mech</option>
+                  </select>
+                </div>
+      
+                <br>
+                <button type="submit" class="btn " style="background:tomato;color:white;height:40px; width:100%;">Update</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    <script type="text/javascript">
+        window.onload = () => {
+            $('#onload').modal('show');
+        }
+    </script>
+
+</body>
+</html>
