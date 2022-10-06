@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const Lib = require("../models/Lib")
 
 router.use((req, res, next) => {
    if(req.cookies['auth']=='true'){
@@ -9,11 +10,42 @@ router.use((req, res, next) => {
    }
 })
 
-router.get('/', function(req, res){
-   res.render("lib/index.ejs")
+router.get('/', async (req, res)=>{
+   var libs = await Lib.find({permit:false}).sort({"timestamp":-1}).limit(20);
+   var libsLists = await Lib.find({permit:true}).sort({"timestamp":-1});
+   var total = await Lib.count({permit:true});
+   res.render("lib/index.ejs" , {libs:libs , libsLists:libsLists , total:total} )
 });
-router.post('/', function(req, res){
-   res.send('POST route on lib.');
+
+router.post("/delete", async (req,res)=>{
+   var libs = await Lib.findByIdAndRemove(req.body.id)
+   res.redirect("/lib")
+})
+
+router.post("/view", async (req,res)=>{
+   var lib = await Lib.findById(req.body.id)
+   res.render("lib/view.ejs" , {lib:lib})
+})
+
+router.post("/update", async (req,res)=>{
+   var lib = await Lib.findByIdAndUpdate(req.body.id ,{
+      gettime:req.body.gettime,
+      data:req.body.data,
+      permit:true,
+   })
+   res.redirect("/lib")
+})
+
+router.get('/add', async (req, res)=>{
+   var libs = await Lib({
+      student_id : 2001,
+      person_name:"Raja",
+      book_id: 98372879687,
+      book_name:"Mobile Computing",
+      permit:false,
+   })
+   libs.save()
+   res.redirect("/lib")
 });
 
 module.exports = router;

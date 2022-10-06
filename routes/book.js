@@ -17,9 +17,10 @@ router.get('/', async (req, res)=>{
    }else if(req.query.book_name){
       var books = await Book.find({book_name:{ "$regex": req.query.book_name , "$options": "i" }}).sort({"timestamp":-1});
    }else{
-      var books = await Book.find().sort({"timestamp":-1});
+      var books = await Book.find().sort({"timestamp":-1}).limit(50);
    }
-   res.render("book/index" , {books:books})
+   var total = await Book.count();
+   res.render("book/index" , {books:books, total:total})
 });
 
 router.post('/new', async (req, res)=>{
@@ -32,8 +33,13 @@ router.post('/new', async (req, res)=>{
       version:req.body.version,
       stock : req.body.stock,
    });
-   books.save();
-   res.redirect("/book")
+   books.save((err)=>{
+      if(err){
+         res.redirect("/book?err=ISBN Already Exist")
+      }else{
+         res.redirect("/book")
+      }
+   });
 });
 
 router.post('/edit', async (req, res)=>{

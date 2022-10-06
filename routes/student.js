@@ -19,9 +19,10 @@ router.get('/', async (req, res)=>{
    }else if(req.query.student_name){
       var studentsList = await Student.find({access:true,student_name:{ "$regex": req.query.student_name , "$options": "i" }}).sort({"timestamp":-1});
    }else{
-      var studentsList = await Student.find({access:true}).sort({"timestamp":-1});
+      var studentsList = await Student.find({access:true}).sort({"timestamp":-1}).limit(50);
    }
-   res.render("student/index" , {students:students , studentsList:studentsList})
+   var total = await Student.find({access:true}).count();
+   res.render("student/index" , {students:students , studentsList:studentsList , total:total})
 });
 
 router.post('/access',async (req,res)=>{
@@ -37,11 +38,11 @@ router.post('/delete',async (req,res)=>{
 router.get('/add', async (req, res)=>{
    var student = await Student({
       student_name : "Raja",
-      student_id : 2002,
-      student_email :"studen@gmail.com" ,
+      student_id : 2001,
+      student_email :"student@gmail.com" ,
       student_password : "try",
       dept : "CSE",
-      access : true,
+      access : false,
    })
    student.save();
    res.redirect("/student")

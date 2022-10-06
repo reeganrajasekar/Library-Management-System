@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Admin</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    
+
+    <div class="modal  fade" id="onload"  aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog modal-fullscreen">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New Book </h5>
+              <a href="/lib">
+                <button type="button" class="btn-close" ></button>
+              </a>
+            </div>
+            <div class="modal-body container">
+              <form action="/lib/update" method="post" onsubmit="return confirm('Do you Want to Update?')">
+                <input type="hidden" name="id" value="<%= lib.id %>">
+                <div class="form-group">
+                    <label style="color:gray">Book ID :</label>
+                  <input type="text" disabled value="<%= lib.book_id %>" class="form-control" name="book_id">
+                </div><br>
+
+                <div class="form-group">
+                    <label style="color:gray">Book Name:</label>
+                  <input type="text" disabled value="<%= lib.book_id %>" class="form-control" name="book_name">
+                </div><br>
+
+                <% if(lib.staff_id){%>
+                    <div class="form-group">
+                        <label style="color:gray">Staff ID:</label>
+                      <input type="text" disabled value="<%= lib.staff_id %>" class="form-control" name="staff_id">
+                    </div><br>
+                <% }else{%>
+                    <div class="form-group">
+                        <label style="color:gray">Student ID:</label>
+                      <input type="text" disabled value="<%= lib.student_id %>" class="form-control" name="student_id">
+                    </div><br>
+                <% }%>
+
+
+                <div class="form-group">
+                    <label style="color:gray">Person Name:</label>
+                  <input type="text" disabled value="<%= lib.person_name %>" class="form-control" name="person_name">
+                </div><br>
+
+                <% d = new Date(lib.gettime) %>
+                <% d.setHours(d.getHours() + 5); %>
+                <% d.setMinutes(d.getMinutes() + 30); %>
+                <div class="form-group">
+                    <label style="color:gray">schedule Time:</label>
+                    <input type="datetime-local" value="<%= (lib.gettime)? d.toISOString().substr(0, 19) : 00 %>" class="form-control" name="gettime">
+                </div><br>
+                <div class="form-group">
+                    <label style="color:gray">Command:</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="data"><%= lib.data %></textarea>
+                </div><br>
+
+                
+      
+                <br>
+                <div style="display: flex;justify-content: space-around;">
+                    <button type="submit" class="btn " style="background:green;color:white;height:40px; width:300px;">Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    <script type="text/javascript">
+        window.onload = () => {
+            $('#onload').modal('show');
+        }
+    </script>
+
+</body>
+</html>
