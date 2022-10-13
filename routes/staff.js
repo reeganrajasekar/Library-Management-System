@@ -19,7 +19,7 @@ router.get('/', async (req, res)=>{
    }else if(req.query.staff_name){
       var staffsList = await Staff.find({access:true,staff_name:{ "$regex": req.query.staff_name , "$options": "i" }}).sort({"timestamp":-1});
    }else{
-      var staffsList = await Staff.find({access:true}).sort({"timestamp":-1}).limit(50);
+      var staffsList = await Staff.find({access:true}).sort({"timestamp":-1});
    }
    var total = await Staff.find({access:true}).count();
    res.render("staff/index" , {staffs:staffs , staffsList:staffsList ,total:total})
@@ -34,18 +34,5 @@ router.post('/delete',async (req,res)=>{
    var staff = await Staff.findByIdAndRemove(req.body.id)
    res.redirect("/staff")
 })
-
-router.get('/add', async (req, res)=>{
-   var staff = await Staff({
-      staff_name : "Raja",
-      staff_id : 2031,
-      staff_email :"staffs@gmail.com" ,
-      staff_password : "try",
-      dept : "CSE",
-      access : false,
-   })
-   staff.save();
-   res.redirect("/staff")
-});
 
 module.exports = router;

@@ -12,6 +12,9 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
 
+const api = require("./routes/api")
+app.use('/api', api);
+
 const lib = require("./routes/lib")
 app.use('/lib', lib);
 

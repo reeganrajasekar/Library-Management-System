@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Lib = require("../models/Lib")
+const Lib = require("../models/Lib");
+const Book = require("../models/Book");
 
 router.use((req, res, next) => {
    if(req.cookies['auth']=='true'){
@@ -36,16 +37,6 @@ router.post("/update", async (req,res)=>{
    res.redirect("/lib")
 })
 
-router.get('/add', async (req, res)=>{
-   var libs = await Lib({
-      student_id : 2001,
-      person_name:"Raja",
-      book_id: 98372879687,
-      book_name:"Mobile Computing",
-      permit:false,
-   })
-   libs.save()
-   res.redirect("/lib")
-});
+
 
 module.exports = router;

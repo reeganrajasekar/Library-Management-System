@@ -19,7 +19,7 @@ router.get('/', async (req, res)=>{
    }else if(req.query.student_name){
       var studentsList = await Student.find({access:true,student_name:{ "$regex": req.query.student_name , "$options": "i" }}).sort({"timestamp":-1});
    }else{
-      var studentsList = await Student.find({access:true}).sort({"timestamp":-1}).limit(50);
+      var studentsList = await Student.find({access:true}).sort({"timestamp":-1});
    }
    var total = await Student.find({access:true}).count();
    res.render("student/index" , {students:students , studentsList:studentsList , total:total})
@@ -35,17 +35,5 @@ router.post('/delete',async (req,res)=>{
    res.redirect("/student")
 })
 
-router.get('/add', async (req, res)=>{
-   var student = await Student({
-      student_name : "Raja",
-      student_id : 2001,
-      student_email :"student@gmail.com" ,
-      student_password : "try",
-      dept : "CSE",
-      access : false,
-   })
-   student.save();
-   res.redirect("/student")
-});
 
 module.exports = router;

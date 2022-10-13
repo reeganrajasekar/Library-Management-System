@@ -33,7 +33,7 @@
 
                 <div class="form-group">
                     <label style="color:gray">Book Name:</label>
-                  <input type="text" disabled value="<%= lib.book_id %>" class="form-control" name="book_name">
+                  <input type="text" disabled value="<%= lib.book_name %>" class="form-control" name="book_name">
                 </div><br>
 
                 <% if(lib.staff_id){%>
@@ -70,9 +70,14 @@
       
                 <br>
                 <div style="display: flex;justify-content: space-around;">
-                    <button type="submit" class="btn " style="background:green;color:white;height:40px; width:300px;">Update</button>
+                  <button type="submit" class="btn " style="background:green;color:white;height:40px; width:300px;">Update</button>
+                </form>
+                  <form action="/lib/delete" method="post" onsubmit="return confirm('Do you Want to delete?')">
+                    <input type="hidden" name="id" value="<%= lib.id %>">
+                    <button class="btn " style="background:red;color:white;height:40px; width:300px;">Delete</button>
+                  </form>
                 </div>
-              </form>
+  
             </div>
           </div>
         </div>

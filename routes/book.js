@@ -16,6 +16,8 @@ router.get('/', async (req, res)=>{
       var books = await Book.find({ISBN:req.query.ISBN}).sort({"timestamp":-1});
    }else if(req.query.book_name){
       var books = await Book.find({book_name:{ "$regex": req.query.book_name , "$options": "i" }}).sort({"timestamp":-1});
+   }else if(req.query.dept){
+      var books = await Book.find({dept:req.query.dept.toUpperCase()}).sort({"timestamp":-1});
    }else{
       var books = await Book.find().sort({"timestamp":-1}).limit(50);
    }
