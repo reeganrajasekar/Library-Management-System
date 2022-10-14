@@ -34,7 +34,7 @@ router.post('/register', async (req, res)=>{
        dept : req.body.dept,
        access : false,
     })
-    stass.save((err,result)=>{
+    staff.save((err,result)=>{
         if(err){
             res.json({
                 code:"Staff details already exists try login"
