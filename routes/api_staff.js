@@ -61,6 +61,7 @@ router.post("/request" , async (req, res)=>{
         book_id: req.body.book_id,
         book_name:req.body.book_name,
         permit:false,
+        data:"Waiting List"
     })
     libs.save()
     var book = await Book.findById(req.body.book_id)

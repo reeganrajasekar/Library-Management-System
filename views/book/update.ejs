@@ -47,10 +47,38 @@
                 <div class=" form-group">
                   <select name="dept" required class="form-control" >
                     <option value="<%= books.dept %>" selected><%= books.dept %></option>
-                    <option value="CSE">CSE</option>
-                    <option value="EEE">EEE</option>
-                    <option value="ECE">ECE</option>
-                    <option value="Mech">Mech</option>
+                    <optgroup label="College of Engineering">
+                      <option value="Civil Engineering">Civil Engineering</option>
+                      <option value="Electrical Engineering">Electrical Engineering</option>
+                      <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    </optgroup>
+                    <optgroup label="College of Computer Engineering and Science">
+                      <option value="Computer Engineering">Computer Engineering</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Information Technology">Information Technology</option>
+                      <option value="Software Engineering">Software Engineering</option>
+                    </optgroup>
+                    <optgroup label="College of Business Administration">
+                      <option value="Accounting">Accounting</option>
+                      <option value="Business Administration">Business Administration</option>
+                      <option value="Finance">Finance</option>
+                      <option value="Human Resource Management">Human Resource Management</option>
+                      <option value="Management Information Systems">Management Information Systems</option>
+                    </optgroup>
+      
+                    <optgroup label="College of Architecture and Design">
+                      <option value="Architecture (ARCH)">Architecture (ARCH)</option>
+                      <option value="Interior Design (IDES)">Interior Design (IDES)</option>
+                      <option value="Graphic Design (GDES)">Graphic Design (GDES)</option>
+                    </optgroup>
+      
+                    <optgroup label="College of Sciences and Human Studies">
+                      <option value="Master of Science in Education and Human Development">Master of Science in Education and Human Development</option>
+                    </optgroup>
+      
+                    <optgroup label="College of LAW">
+                      <option value="College of LAW">College of LAW</option>
+                    </optgroup>
                   </select>
                 </div>
       

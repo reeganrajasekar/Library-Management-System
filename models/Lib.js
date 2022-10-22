@@ -10,7 +10,6 @@ const schema = mongoose.Schema({
 	gettime:Date,
 	data:String,
 	timestamp: { type: Date, default: Date.now},
-
 })
 
 module.exports = mongoose.model("Lib", schema)
