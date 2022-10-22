@@ -44,10 +44,10 @@ app.post("/",(req,res)=>{
     }
 })
 
-app.listen(3000,(err)=>{
+app.listen(80,'0.0.0.0',(err)=>{
     if(err){
         console.log(err);
     }else{
-        console.log("Server Started http://localhost:3000");
+        console.log("Server Started");
     }
 })
