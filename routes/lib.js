@@ -22,7 +22,6 @@ router.post("/delete", async (req,res)=>{
    var libs = await Lib.findByIdAndRemove(req.body.id)
    res.redirect("/lib")
    var book = await Book.findById(req.body.book_id)
-   console.log(book);
    var upbook = await Book.findByIdAndUpdate(req.body.book_id , {
       stock:book.stock+1
   })
