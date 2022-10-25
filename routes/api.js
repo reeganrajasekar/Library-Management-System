@@ -58,7 +58,7 @@ router.get("/books" , async (req, res)=>{
 });
 
 
-router.get("/books" , async (req, res)=>{
+router.get("/lib" , async (req, res)=>{
     var lib = await Lib.find({student_id:req.query.student_id});
     res.json(lib)
 });
