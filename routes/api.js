@@ -52,7 +52,7 @@ router.get("/books" , async (req, res)=>{
     if (req.query.book_name) {
         var book = await Book.find({book_name:{ "$regex": req.query.book_name , "$options": "i" } , dept:req.query.dept , stock:{"$ne":0}});
     } else {
-        var book = await Book.find({dept:req.query.dept}).sort({"timestamp":-1}).limit(50);
+        var book = await Book.find({dept:req.query.dept, stock:{"$ne":0}}).sort({"timestamp":-1}).limit(50);
     }
     res.json(book)
 });
