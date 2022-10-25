@@ -55,8 +55,6 @@
                 </div><br>
 
                 <% d = new Date(lib.gettime) %>
-                <% d.setHours(d.getHours() + 5); %>
-                <% d.setMinutes(d.getMinutes() + 30); %>
                 <div class="form-group">
                     <label style="color:gray">schedule Time:</label>
                     <input type="datetime-local" value="<%= (lib.gettime)? d.toISOString().substr(0, 19) : 00 %>" class="form-control" name="gettime">
