@@ -58,22 +58,28 @@ router.get("/books" , async (req, res)=>{
 });
 
 router.post("/request" , async (req, res)=>{
-    var libs = await Lib({
-        student_id : req.body.student_id,
-        person_name:req.body.student_name,
-        book_id: req.body.book_id,
-        book_name:req.body.book_name,
-        permit:false,
-        data:"Waiting List"
-    })
-    libs.save()
     var book = await Book.findById(req.body.book_id)
-    var upbook = await Book.findByIdAndUpdate(req.body.book_id , {
-        stock:book.stock-1
-    })
-    res.json({
-        code:"Requested"
-    })
+    if(book.stock>0){
+        var libs = await Lib({
+            student_id : req.body.student_id,
+            person_name:req.body.student_name,
+            book_id: req.body.book_id,
+            book_name:req.body.book_name,
+            permit:false,
+            data:"Waiting List"
+        })
+        libs.save()
+        var upbook = await Book.findByIdAndUpdate(req.body.book_id , {
+            stock:book.stock-1
+        })
+        res.json({
+            code:"Requested"
+        })
+    }else{
+        res.json({
+            code:"Out of Stock"
+        })
+    }
 });
 
 module.exports = router;
