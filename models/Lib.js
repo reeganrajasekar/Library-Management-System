@@ -1,8 +1,8 @@
 const mongoose = require("mongoose")
 
 const schema = mongoose.Schema({
-	staff_id : Number,
-	student_id : Number,
+	staff_id : String,
+	student_id : String,
 	person_name:String,
 	book_id:String,
 	book_name:String,

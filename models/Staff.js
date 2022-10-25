@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const schema = mongoose.Schema({
 	staff_name: String,
-	staff_id:{type:Number,unique:true},
+	staff_id:{type:String,unique:true},
 	staff_email:{type:String,unique:true},
 	staff_password:String,
 	dept:String,
