@@ -81,6 +81,7 @@
                 </form>
                   <form action="/lib/delete" method="post" onsubmit="return confirm('Do you Want to delete?')">
                     <input type="hidden" name="id" value="<%= lib.id %>">
+                    <input type="hidden" name="book_id" value="<%= lib.book_id %>">
                     <button class="btn " style="background:red;color:white;height:40px; width:300px;">Delete</button>
                   </form>
                 </div>
