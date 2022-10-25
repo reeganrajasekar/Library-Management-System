@@ -57,6 +57,12 @@ router.get("/books" , async (req, res)=>{
     res.json(book)
 });
 
+
+router.get("/books" , async (req, res)=>{
+    var lib = await Lib.find({student_id:req.query.student_id});
+    res.json(lib)
+});
+
 router.post("/request" , async (req, res)=>{
     var book = await Book.findById(req.body.book_id)
     if(book.stock>0){
