@@ -6,30 +6,56 @@ const Book = require("../models/Book")
 const Staff = require("../models/Staff");
 var nodemailer = require('nodemailer');
 
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'ganree2002@gmail.com',
+      pass: 'R#e#e#g#a#n@2002'
+    }
+});
+
 const api_staff = require("./api_staff")
 router.use('/staff', api_staff);
 
-router.post('/forget', async (req, res)=>{
+router.post('/forgot', async (req, res)=>{
     var student = await Student.find({student_email:req.body.email});
     var staff = await Staff.find({staff_email:req.body.email});
 
-
-    
-    if (student) {
-        if (student[0].access) {
-            res.json({
-                code:"Ok",
-                student:student
-            })
-        } else {
-            res.json({
-                code:"you are in Waiting List"
-            })
-        }
+    if (student[0]) {
+        var mailOptions = {
+            from: 'ganree2002@gmail.com',
+            to: student[0].email,
+            subject: 'Sending Email using Node.js',
+            text: 'That was easy!'
+        };
         
-    } else{
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                res.json(error);
+            } else {
+                res.json('Email sent: ' + info.response);
+            }
+        });
+        
+    } else if (staff[0]) {
+        var mailOptions = {
+            from: 'ganree2002@gmail.com',
+            to: staff[0].email,
+            subject: 'Sending Email using Node.js',
+            text: 'That was easy!'
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                res.json(error);
+            } else {
+                res.json('Email sent: ' + info.response);
+            }
+        });
+        
+    }else{
         res.json({
-            code:"Wrong Username or Password"
+            code:"Wrong Email"
         })
     }
 });
