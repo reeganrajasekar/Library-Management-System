@@ -7,11 +7,15 @@ const Staff = require("../models/Staff");
 var nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
+    host: "127.0.0.1",
+    port: 1025,
+    secure: false,
     auth: {
-        user: 'charley.legros@ethereal.email',
-        pass: 'R3nPgDAkPWnADKdgG6'
+      user: "pmubookstore@proton.me", 
+      pass: "pmu@2022"
+    }, 
+    tls: {
+        rejectUnauthorized: false
     }
 });
 const api_staff = require("./api_staff")
@@ -34,6 +38,7 @@ router.post('/forgot', async (req, res)=>{
                 res.json(error);
             } else {
                 res.json('Email sent: ' + info.response);
+                console.log('Email sent: ' + info.response);
             }
         });
         
