@@ -3,9 +3,36 @@ const router = express.Router();
 const Student = require("../models/Student");
 const Lib = require("../models/Lib")
 const Book = require("../models/Book")
+const Staff = require("../models/Staff");
+var nodemailer = require('nodemailer');
 
 const api_staff = require("./api_staff")
 router.use('/staff', api_staff);
+
+router.post('/forget', async (req, res)=>{
+    var student = await Student.find({student_email:req.body.email});
+    var staff = await Staff.find({staff_email:req.body.email});
+
+
+    
+    if (student) {
+        if (student[0].access) {
+            res.json({
+                code:"Ok",
+                student:student
+            })
+        } else {
+            res.json({
+                code:"you are in Waiting List"
+            })
+        }
+        
+    } else{
+        res.json({
+            code:"Wrong Username or Password"
+        })
+    }
+});
 
 router.post('/', async (req, res)=>{
     var student = await Student.find({student_email:req.body.student_email , student_password:req.body.student_password});
