@@ -45,7 +45,7 @@ router.post('/forgot', async (req, res)=>{
     } else if (staff[0]) {
         var mailOptions = {
             from: 'pmubookstore@gmail.com',
-            to: student[0].staff_email,
+            to: staff[0].staff_email,
             subject: staff[0].staff_email+" Password",
             text: 'Password : '+staff[0].staff_password
         };
