@@ -7,12 +7,12 @@ const Staff = require("../models/Staff");
 var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
-    host: 'areeganrajasekar@yahoo.com',
+    host: 'smtp.mail.yahoo.com',
     port: 465,
     service:'yahoo',
     secure: false,
     auth: {
-       user: senderMail,
+       user: 'areeganrajasekar@yahoo.com',
        pass: 'R#e#e#g#a#n@2002'
     },
     debug: false,
