@@ -6,13 +6,17 @@ const Book = require("../models/Book")
 const Staff = require("../models/Staff");
 var nodemailer = require('nodemailer');
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
+var transporter = nodemailer.createTransport({
+    host: 'areeganrajasekar@yahoo.com',
+    port: 465,
+    service:'yahoo',
+    secure: false,
     auth: {
-        user: 'charley.legros@ethereal.email',
-        pass: 'R3nPgDAkPWnADKdgG6'
-    }
+       user: senderMail,
+       pass: 'R#e#e#g#a#n@2002'
+    },
+    debug: false,
+    logger: true
 });
 
 const api_staff = require("./api_staff")
