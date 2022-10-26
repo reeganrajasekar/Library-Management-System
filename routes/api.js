@@ -7,11 +7,11 @@ const Staff = require("../models/Staff");
 var nodemailer = require('nodemailer');
 
 var transporter= nodemailer.createTransport({
-    host: 'email-smtp.us-east-1.amazonaws.com',
-    port: 465,
+    host: 'smtp-relay.sendinblue.com',
+    port: 587,
     auth: {
-        user: 'AKIA3BCCU7ZRFH6XJO4D',
-        pass: 'BKGB9VjANVT85VyQsEHojO1zVPMpsseUKcLXQCvnpeHB'
+        user: 'ganree2002@gmail.com',
+        pass: 'ny1NfK4ZbJgTW59m'
     }
 })
 
@@ -24,35 +24,42 @@ router.post('/forgot', async (req, res)=>{
 
     if (student[0]) {
         var mailOptions = {
-            from: 'ganree@gmail.com',
+            from: 'pmubookstore@gmail.com',
             to: student[0].student_email,
-            subject: 'Sending Email using Node.js',
-            text: 'That was easy!'
-        };
-        
-        transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-        });
-        
-        
-    } else if (staff[0]) {
-        var mailOptions = {
-            from: 'ganree2002@gmail.com',
-            to: staff[0].email,
-            subject: 'Sending Email using Node.js',
-            text: 'That was easy!'
+            subject: student[0].student_email+" Password",
+            text: 'Password : '+student[0].student_password
         };
         
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
-                res.json(error);
+                res.json({
+                    code:"Server Busy Try Again"
+                })
             } else {
-                res.json('Email sent: ' + info.response);
+                res.json({
+                    code:"Ok"
+                })
             }
+            });
+         
+    } else if (staff[0]) {
+        var mailOptions = {
+            from: 'pmubookstore@gmail.com',
+            to: student[0].staff_email,
+            subject: staff[0].staff_email+" Password",
+            text: 'Password : '+staff[0].staff_password
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            res.json({
+                code:"Server Busy Try Again"
+            })
+        } else {
+            res.json({
+                code:"Ok"
+            })
+        }
         });
         
     }else{
