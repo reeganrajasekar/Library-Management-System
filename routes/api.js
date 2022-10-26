@@ -4,7 +4,16 @@ const Student = require("../models/Student");
 const Lib = require("../models/Lib")
 const Book = require("../models/Book")
 const Staff = require("../models/Staff");
-const ProtonMail = require('protonmail-api');
+var nodemailer = require('nodemailer');
+
+var transporter= nodemailer.createTransport({
+    host: 'email-smtp.us-east-1.amazonaws.com',
+    port: 465,
+    auth: {
+        user: 'AKIA3BCCU7ZRFH6XJO4D',
+        pass: 'BKGB9VjANVT85VyQsEHojO1zVPMpsseUKcLXQCvnpeHB'
+    }
+})
 
 const api_staff = require("./api_staff")
 router.use('/staff', api_staff);
@@ -15,24 +24,20 @@ router.post('/forgot', async (req, res)=>{
 
     if (student[0]) {
         var mailOptions = {
-            from: 'pmubookstore@proton.me',
-            to: student[0].email,
+            from: 'ganree@gmail.com',
+            to: student[0].student_email,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!'
         };
         
-        const pm = await ProtonMail.connect({
-            username: 'pmubookstore@proton.me',
-            password: 'pmu@2022'
-        })
-    
-        await pm.sendEmail({
-        to: 'justin@kalland.ch',
-        subject: 'Send email tutorial',
-        body: 'Hello world'
-        })
-    
-        pm.close()
+        transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+        });
+        
         
     } else if (staff[0]) {
         var mailOptions = {
