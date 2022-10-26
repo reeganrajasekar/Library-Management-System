@@ -7,11 +7,16 @@ const Staff = require("../models/Staff");
 var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
-    service: 'yahoo',
+    host: 'areeganrajasekar@yahoo.com',
+    port: 465,
+    service:'yahoo',
+    secure: false,
     auth: {
-      user: 'areeganrajasekar@yahoo.com',
-      pass: 'Reegan@2002'
-    }
+       user: senderMail,
+       pass: 'R#e#e#g#a#n@2002'
+    },
+    debug: false,
+    logger: true
 });
 
 const api_staff = require("./api_staff")
