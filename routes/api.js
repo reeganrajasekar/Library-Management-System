@@ -7,9 +7,9 @@ const Staff = require("../models/Staff");
 var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: 'yahoo',
     auth: {
-      user: 'ganree2002@gmail.com',
+      user: 'areeganrajasekar@yahoo.com',
       pass: 'Reegan@2002'
     }
 });
