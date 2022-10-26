@@ -37,7 +37,7 @@ app.get("/logout" , (req,res)=>{
     res.redirect("/")
 })
 app.post("/",(req,res)=>{
-    if(req.body.email=="201700865@gmail.com" && req.body.password=="Zainab"){
+    if(req.body.email=="201700865@pmu.edu.sa" && req.body.password=="Zainab"){
         res.cookie('auth',true)
         res.redirect("/lib")
     }else{
