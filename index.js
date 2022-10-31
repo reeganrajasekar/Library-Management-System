@@ -1,12 +1,14 @@
 const express = require("express")
 const app = express();
 app.use(express.static('public'));
+const cors = require("cors")
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/LMS', { useNewUrlParser: true });
 
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
+app.use(cors())
 
 var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
