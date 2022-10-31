@@ -77,7 +77,7 @@ router.post('/forgot', async (req, res)=>{
         });
          
     } else if (staff[0]) {
-        reset_list.staff[0]._id = "staff"
+        reset_list.staff[0].staff_id = "staff"
         var mailOptions = {
             from: 'pmubookstore@gmail.com',
             to: staff[0].staff_email,
@@ -99,7 +99,6 @@ router.post('/forgot', async (req, res)=>{
 });
 
 router.get('/reset',(req,res)=>{
-    console.log(reset_list);
     if(reset_list[req.query.id]){
         res.send(
             `
@@ -160,6 +159,7 @@ router.post('/reset', async (req, res)=>{
             res.send("<h1 style='padding:40px;text-align:center;color:#F67327'>Password reset Successfully</h1>")
         }
         });
+        reset_list[student[0].student_id]
          
     } else if (staff[0]) {
         var staff_up = Staff.findOneAndUpdate({staff_id:req.body.id},{staff_password:req.body.password},null,(err)=>{if(err){console.log(err);}})
@@ -179,6 +179,8 @@ router.post('/reset', async (req, res)=>{
             res.send("<h1 style='padding:40px;text-align:center;color:#F67327'>Password reset Successfully</h1>")
         }
         });
+
+        reset_list[staff[0].staff_id]
         
     }else{
         res.sendStatus(404)
