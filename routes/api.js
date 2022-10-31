@@ -64,7 +64,7 @@ router.post('/forgot', async (req, res)=>{
             from: 'pmubookstore@gmail.com',
             to: student[0].student_email,
             subject:"Password Reset",
-            text: "<h1 style='text-align:center'>PMU BookStore</h1><a href='http://localhost/api/reset?id="+student[0].student_id+"'>reset password</a>"
+            text: "<h1 style='text-align:center'>PMU BookStore</h1><a href='http://ec2-65-2-181-127.ap-south-1.compute.amazonaws.com/api/reset?id="+student[0].student_id+"'>reset password</a>"
         };
         
         transporter.sendMail(mailOptions, function(error, info){
@@ -82,7 +82,7 @@ router.post('/forgot', async (req, res)=>{
             from: 'pmubookstore@gmail.com',
             to: staff[0].staff_email,
             subject: staff[0].staff_email+" Password",
-            text: "<h1 style='text-align:center'>PMU BookStore</h1><a href='http://localhost/api/reset?id="+staff[0].staff_id+"'>reset password</a>"
+            text: "<h1 style='text-align:center'>PMU BookStore</h1><a href='http://ec2-65-2-181-127.ap-south-1.compute.amazonaws.com/api/reset?id="+staff[0].staff_id+"'>reset password</a>"
         };
         
         transporter.sendMail(mailOptions, function(error, info){
