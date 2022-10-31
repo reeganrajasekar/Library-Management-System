@@ -4,7 +4,7 @@ app.use(express.static('public'));
 const cors = require("cors")
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/LMS', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://reegan:IwmETpOyBNTtKU2P@cluster0.nqojeer.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true ,useUnifiedTopology: true,});
 
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
