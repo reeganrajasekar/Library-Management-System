@@ -9,11 +9,11 @@ var nodemailer = require('nodemailer');
 var reset_list = {'8219191': 'student'}
 
 var transporter= nodemailer.createTransport({
-    host: 'smtp-relay.sendinblue.com',
+    host: 'in-v3.mailjet.com',
     port: 587,
     auth: {
-        user: 'pmubookstore@gmail.com',
-        pass: '6MUjBhxHVI324fza'
+        user: 'd778da8cbf1df17b06e7155795152a69',
+        pass: '1c01f8ea7ec1de80b6f33185148269b2'
     }
 })
 
