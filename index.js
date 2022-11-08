@@ -47,7 +47,7 @@ app.post("/",(req,res)=>{
     }
 })
 
-app.listen(80,'0.0.0.0',(err)=>{
+app.listen(3000,'0.0.0.0',(err)=>{
     if(err){
         console.log(err);
     }else{

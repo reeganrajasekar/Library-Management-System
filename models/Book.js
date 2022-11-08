@@ -6,7 +6,7 @@ const schema = mongoose.Schema({
 	year : Number,
 	version : Number,
 	ISBN : {type:Number ,unique:true},
-	dept : String,
+	dept : Array,
 	stock : Number,
 	timestamp: { type: Date, default: Date.now},
 })

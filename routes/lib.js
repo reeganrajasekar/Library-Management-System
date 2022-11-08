@@ -2,7 +2,15 @@ const express = require('express');
 const router = express.Router();
 const Lib = require("../models/Lib");
 const Book = require("../models/Book");
-
+var nodemailer = require('nodemailer');
+var transporter= nodemailer.createTransport({
+   host: 'in-v3.mailjet.com',
+   port: 587,
+   auth: {
+       user: 'd778da8cbf1df17b06e7155795152a69',
+       pass: '1c01f8ea7ec1de80b6f33185148269b2'
+   }
+})
 router.use((req, res, next) => {
    if(req.cookies['auth']=='true'){
       next()
@@ -38,7 +46,24 @@ router.post("/update", async (req,res)=>{
       data:req.body.data,
       permit:true,
    })
-   res.redirect("/lib")
+
+   var mailOptions = {
+      from: 'pmubookstore@gmail.com',
+      to: student[0].student_email,
+      subject:"Check Your Request Status",
+      html: "<h1 style='text-align:center'>PMU BookStore</h1><p style='text-align:center'>You can check your request status by login PMU Bookstore app</p>"
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+          console.log(error)
+          res.redirect("/lib")
+      } else {
+          res.redirect("/lib")
+      }
+  });
+
+
 })
 
 

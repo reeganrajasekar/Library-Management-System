@@ -45,8 +45,8 @@
                   <input type="number" required placeholder="Stock" value="<%= books.stock %>" class="form-control" name="stock">
                 </div><br>
                 <div class=" form-group">
-                  <select name="dept" required class="form-control" >
-                    <option value="<%= books.dept %>" selected><%= books.dept %></option>
+                  <select name="dept" required class="form-control" size="10" style="height: 100%;" multiple>
+                    <option value="" disabled selected><%= books.dept %></option>
                     <optgroup label="College of Engineering">
                       <option value="Civil Engineering">Civil Engineering</option>
                       <option value="Electrical Engineering">Electrical Engineering</option>

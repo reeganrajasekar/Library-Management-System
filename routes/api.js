@@ -6,7 +6,7 @@ const Book = require("../models/Book")
 const Staff = require("../models/Staff");
 var nodemailer = require('nodemailer');
 
-var reset_list = {'8219191': 'student'}
+var reset_list = {}
 
 var transporter= nodemailer.createTransport({
     host: 'in-v3.mailjet.com',
@@ -18,7 +18,6 @@ var transporter= nodemailer.createTransport({
 })
 
 const api_staff = require("./api_staff");
-const { findOneAndUpdate } = require('../models/Student');
 router.use('/staff', api_staff);
 
 router.get('/forgot', async (req, res)=>{
@@ -64,7 +63,7 @@ router.post('/forgot', async (req, res)=>{
             from: 'pmubookstore@gmail.com',
             to: student[0].student_email,
             subject:"Password Reset",
-            html: "<h1 style='text-align:center'>PMU BookStore</h1><a href='http://ec2-65-2-181-127.ap-south-1.compute.amazonaws.com/api/reset?id="+student[0].student_id+"'>reset password</a>"
+            html: "<h1 style='text-align:center'>PMU BookStore</h1><a href='https://wakeful-flower-wind.glitch.me/api/reset?id="+student[0].student_id+"'>reset password</a>"
         };
         
         transporter.sendMail(mailOptions, function(error, info){
@@ -82,7 +81,7 @@ router.post('/forgot', async (req, res)=>{
             from: 'pmubookstore@gmail.com',
             to: staff[0].staff_email,
             subject: staff[0].staff_email+" Password",
-            html: "<h1 style='text-align:center'>PMU BookStore</h1><a href='http://ec2-65-2-181-127.ap-south-1.compute.amazonaws.com/api/reset?id="+staff[0].staff_id+"'>reset password</a>"
+            html: "<h1 style='text-align:center'>PMU BookStore</h1><a href='https://wakeful-flower-wind.glitch.me/api/reset?id="+staff[0].staff_id+"'>reset password</a>"
         };
         
         transporter.sendMail(mailOptions, function(error, info){
