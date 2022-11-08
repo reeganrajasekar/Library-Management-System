@@ -158,7 +158,7 @@ router.post('/reset', async (req, res)=>{
             res.send("<h1 style='padding:40px;text-align:center;color:#F67327'>Password reset Successfully</h1>")
         }
         });
-        reset_list[student[0].student_id]
+        delete reset_list[student[0].student_id]
          
     } else if (staff[0]) {
         var staff_up = Staff.findOneAndUpdate({staff_id:req.body.id},{staff_password:req.body.password},null,(err)=>{if(err){console.log(err);}})
@@ -179,7 +179,7 @@ router.post('/reset', async (req, res)=>{
         }
         });
 
-        reset_list[staff[0].staff_id]
+        delete reset_list[staff[0].staff_id]
         
     }else{
         res.sendStatus(404)
