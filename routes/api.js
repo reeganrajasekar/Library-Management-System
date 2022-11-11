@@ -8,7 +8,6 @@ var nodemailer = require('nodemailer');
 var formidable = require('formidable');
 const path = require("path")
 var mv = require('mv');
-const multer = require('multer');
 
 var reset_list = {}
 
