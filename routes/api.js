@@ -250,6 +250,7 @@ router.post("/request" , async (req, res)=>{
             person_name:req.body.student_name,
             book_id: req.body.book_id,
             book_name:req.body.book_name,
+            get_time:req.body.gettime,
             permit:false,
             data:"Waiting List"
         })
