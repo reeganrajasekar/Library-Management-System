@@ -7,6 +7,7 @@ const schema = mongoose.Schema({
 	student_password:String,
 	dept:String,
 	access:Boolean,
+	file:String,
 	timestamp: { type: Date, default: Date.now},
 })
 

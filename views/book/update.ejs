@@ -27,24 +27,31 @@
               <form action="/book/update" method="post" onsubmit="return confirm('Do you Want to Update?')">
                 <input type="hidden" name="id" value="<%= books.id %>">
                 <div class="form-group">
+                  <label >Book Name :</label>
                   <input type="text" required placeholder="Book Name" value="<%= books.book_name %>" class="form-control" name="book_name">
                 </div><br>
                 <div class=" form-group">
+                  <label >Author Name : </label>
                   <input type="text" required placeholder="Author Name" value="<%= books.author_name %>" class="form-control" name="author_name">
                 </div><br>
                 <div class=" form-group">
+                  <label >Year :</label>
                   <input type="number" required placeholder="Year" value="<%= books.year %>" class="form-control" name="year">
                 </div><br>
                 <div class=" form-group">
+                  <label >Version :</label>
                   <input type="number" required placeholder="Version" value="<%= books.version %>" class="form-control" name="version">
                 </div><br>
                 <div class=" form-group">
+                  <label >ISBN :</label>
                   <input type="number" required placeholder="ISBN" value="<%= books.ISBN %>" class="form-control" name="ISBN">
                 </div><br>
                 <div class=" form-group">
+                  <label >Stock :</label>
                   <input type="number" required placeholder="Stock" value="<%= books.stock %>" class="form-control" name="stock">
                 </div><br>
                 <div class=" form-group">
+                  <label >Department :</label>
                   <select name="dept" required class="form-control" size="10" style="height: 100%;" multiple>
                     <option value="" disabled selected><%= books.dept %></option>
                     <optgroup label="College of Engineering">

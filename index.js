@@ -11,9 +11,9 @@ app.use(cookieParser());
 app.use(cors())
 
 var bodyParser = require('body-parser')
+app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
-app.use(bodyParser.json())
 
 const api = require("./routes/api")
 app.use('/api', api);

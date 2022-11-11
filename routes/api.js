@@ -5,6 +5,10 @@ const Lib = require("../models/Lib")
 const Book = require("../models/Book")
 const Staff = require("../models/Staff");
 var nodemailer = require('nodemailer');
+var formidable = require('formidable');
+const path = require("path")
+var mv = require('mv');
+const multer = require('multer');
 
 var reset_list = {}
 
@@ -207,24 +211,36 @@ router.post('/', async (req, res)=>{
     }
 });
 
-router.post('/register', async (req, res)=>{
-    var student = await Student({
-       student_name : req.body.student_name,
-       student_id : req.body.student_id ,
-       student_email :req.body.student_email ,
-       student_password : req.body.student_password,
-       dept : req.body.dept,
-       access : false,
-    })
-    student.save((err,result)=>{
-        if(err){
-            res.json({
-                code:"Student details already exists try login"
+
+router.post('/register', (req, res , next)=>{
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+        var dir = path.join(__dirname,"../public/uploads/");
+        var oldpath = files.idcard.filepath;
+        newpath = dir+files.idcard.newFilename+".jpg";
+        dbfile = files.idcard.newFilename
+        mv(oldpath, newpath,fields, async function (err) {
+            if (err) throw err;
+            var student = await Student({
+            student_name : fields.student_name,
+            student_id : fields.student_id ,
+            student_email :fields.student_email ,
+            student_password : fields.student_password,
+            dept : fields.dept,
+            file:dbfile,
+            access : false,
             })
-        }else{
-            res.json({code:"registered"})
-        }
-    });
+            student.save((err,result)=>{
+                if(err){
+                    res.json({
+                        code:"Student details already exists try login"
+                    })
+                }else{
+                    res.json({code:"registered"})
+                }
+            });
+        })
+    })
  });
 
 router.get("/books" , async (req, res)=>{
@@ -243,29 +259,41 @@ router.get("/lib" , async (req, res)=>{
 });
 
 router.post("/request" , async (req, res)=>{
-    var book = await Book.findById(req.body.book_id)
-    if(book.stock>0){
-        var libs = await Lib({
-            student_id : req.body.student_id,
-            person_name:req.body.student_name,
-            book_id: req.body.book_id,
-            book_name:req.body.book_name,
-            get_time:req.body.gettime,
-            permit:false,
-            data:"Waiting List"
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+        var dir = path.join(__dirname,"../public/uploads/pdf/");
+        var oldpath = files.file.filepath;
+        newpath = dir+files.file.newFilename+".pdf";
+        dbfile = files.file.newFilename
+        mv(oldpath, newpath,fields, async function (err) {
+            if (err) throw err;
+            var book = await Book.findById(fields.book_id)
+            if(book.stock>0){
+                var libs = await Lib({
+                    student_id : fields.student_id,
+                    person_name:fields.student_name,
+                    book_id: fields.book_id,
+                    book_name:fields.book_name,
+                    get_time:fields.gettime,
+                    file:dbfile,
+                    permit:false,
+                    data:"Waiting List"
+                })
+                libs.save()
+                var upbook = await Book.findByIdAndUpdate(fields.book_id , {
+                    stock:book.stock-1
+                })
+                res.json({
+                    code:"Requested"
+                })
+            }else{
+                res.json({
+                    code:"Out of Stock"
+                })
+            }
         })
-        libs.save()
-        var upbook = await Book.findByIdAndUpdate(req.body.book_id , {
-            stock:book.stock-1
-        })
-        res.json({
-            code:"Requested"
-        })
-    }else{
-        res.json({
-            code:"Out of Stock"
-        })
-    }
+    })
+    
 });
 
 module.exports = router;

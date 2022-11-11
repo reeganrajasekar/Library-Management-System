@@ -21,7 +21,7 @@
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
 
           <li class="nav-item">
-            <a class="nav-link " style="color:tomato" aria-current="page" href="/lib">Home</a>
+            <a class="nav-link " style="color:tomato" aria-current="page" href="/lib">Dashboard</a>
           </li>
 
           <li class="nav-item">
@@ -56,12 +56,13 @@
       <th style="color:tomato !important">Person ID</th>
       <th style="color:tomato !important">Person Name</th>
       <th style="color:tomato !important">Book Name</th>
+      <th style="color:tomato !important">Coupon</th>
       <th style="color:tomato !important">Action</th>
     </tr>
 
     <% if(libs[0]){ %>
       <tr>
-        <td colspan="5" class="table-secondary" style="color: tomato;font-size: 22px;text-align: left;"><b>Waiting List</b></td>
+        <td colspan="6" class="table-secondary" style="color: tomato;font-size: 22px;text-align: left;"><b>Waiting List</b></td>
       </tr>
     <% } %>
     <% libs.map((lib)=>{ %>
@@ -73,6 +74,7 @@
         <% }%>
         <td><%= lib.person_name %></td>
         <td><%= lib.book_name %></td>
+        <td><a target="_blank" href="/uploads/pdf/<%= lib.file %>.pdf">Click here</a></td>
         <td>
           <div style="display: flex;justify-content: space-evenly;align-items: center;">
             <form action="/lib/view" method="post">
@@ -93,7 +95,7 @@
 
     <% if(libsLists[0]){ %>
       <tr>
-        <td colspan="5" class="table-secondary" style="color: tomato;font-size: 22px;text-align: left;"><b>List</b></td>
+        <td colspan="6" class="table-secondary" style="color: tomato;font-size: 22px;text-align: left;"><b>List</b></td>
       </tr>
     <% } %>
     <% libsLists.map((libList)=>{ %>
@@ -105,6 +107,7 @@
         <% }%>
         <td><%= libList.person_name %></td>
         <td><%= libList.book_name %></td>
+        <td><a target="_blank" href="/uploads/pdf/<%= libList.file %>.pdf">Click here</a></td>
         <td>
           <div style="display: flex;justify-content: space-evenly;align-items: center;">
             <form action="/lib/view" method="post">

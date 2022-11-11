@@ -9,6 +9,7 @@ const schema = mongoose.Schema({
 	permit:{type:Boolean,default: false},
 	gettime:Date,
 	data:String,
+	file:String,
 	timestamp: { type: Date, default: Date.now},
 })
 
