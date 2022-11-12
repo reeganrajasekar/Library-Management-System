@@ -220,7 +220,7 @@ var storagepic = multer.diskStorage(
 );
 
 var uploadpic = multer( { storage: storagepic } );
-router.post('/register',upload.single('idcard'), async (req, res , next)=>{
+router.post('/register',uploadpic.single('idcard'), async (req, res , next)=>{
 
     var student = await Student({
     student_name : fields.student_name,
