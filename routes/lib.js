@@ -47,22 +47,7 @@ router.post("/update", async (req,res)=>{
       permit:true,
    })
 
-   var mailOptions = {
-      from: 'pmubookstore@gmail.com',
-      to: student[0].student_email,
-      subject:"Check Your Request Status",
-      html: "<h1 style='text-align:center'>PMU BookStore</h1><p style='text-align:center'>You can check your request status by login PMU Bookstore app</p>"
-  };
-  
-  transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-          console.log(error)
-          res.redirect("/lib")
-      } else {
-          res.redirect("/lib")
-      }
-  });
-
+   res.redirect("/lib")
 
 })
 

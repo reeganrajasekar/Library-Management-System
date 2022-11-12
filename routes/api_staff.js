@@ -3,6 +3,8 @@ const router = express.Router();
 const Staff = require("../models/Staff");
 const Lib = require("../models/Lib")
 const Book = require("../models/Book")
+const multer = require('multer');
+
 
 router.post('/', async (req, res)=>{
     var staff = await Staff.find({staff_email:req.body.staff_email , staff_password:req.body.staff_password});

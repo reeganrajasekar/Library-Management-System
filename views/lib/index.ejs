@@ -74,7 +74,12 @@
         <% }%>
         <td><%= lib.person_name %></td>
         <td><%= lib.book_name %></td>
-        <td><a target="_blank" href="/uploads/pdf/<%= lib.file %>.pdf">Click here</a></td>
+        <% if(lib.staff_id){%>
+          <td></td>
+        <% }else{%>
+          <td><a target="_blank" href="/uploads/pdf/<%= lib.file %>.pdf">Click here</a></td>
+        <% }%>
+        
         <td>
           <div style="display: flex;justify-content: space-evenly;align-items: center;">
             <form action="/lib/view" method="post">
@@ -107,7 +112,11 @@
         <% }%>
         <td><%= libList.person_name %></td>
         <td><%= libList.book_name %></td>
-        <td><a target="_blank" href="/uploads/pdf/<%= libList.file %>.pdf">Click here</a></td>
+        <% if(libList.staff_id){%>
+          <td></td>
+        <% }else{%>
+          <td><a target="_blank" href="/uploads/pdf/<%= libList.file %>.pdf">Click here</a></td>
+        <% }%>
         <td>
           <div style="display: flex;justify-content: space-evenly;align-items: center;">
             <form action="/lib/view" method="post">

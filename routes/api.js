@@ -277,7 +277,7 @@ router.post("/request" ,upload.single('file'), async (req, res ,next)=>{
                 person_name:req.body.student_name,
                 book_id: req.body.book_id,
                 book_name:req.body.book_name,
-                get_time:req.body.gettime,
+                gettime:req.body.get_time,
                 file:req.file.filename.slice(0,-4),
                 permit:false,
                 data:"Waiting List"
@@ -286,9 +286,7 @@ router.post("/request" ,upload.single('file'), async (req, res ,next)=>{
             var upbook = await Book.findByIdAndUpdate(req.body.book_id , {
                 stock:book.stock-1
             })
-            res.json({
-                code:"Requested"
-            })
+            res.send("Requested")
         }else{
             res.json({
                 code:"Out of Stock"
