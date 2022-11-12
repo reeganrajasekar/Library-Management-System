@@ -216,8 +216,8 @@ router.post('/register', (req, res , next)=>{
     form.parse(req, function (err, fields, files) {
         var dir = path.join(__dirname,"../public/uploads/");
         var oldpath = files.idcard.filepath;
-        newpath = dir+files.idcard.newFilename+".jpg";
-        dbfile = files.idcard.newFilename
+        dbfile = files.idcard.newFilename+Date.now();
+        newpath = dir+dbfile+".jpg";
         mv(oldpath, newpath,fields, async function (err) {
             if (err) throw err;
             var student = await Student({
@@ -261,9 +261,9 @@ router.post("/request" , async (req, res)=>{
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
         var dir = path.join(__dirname,"../public/uploads/pdf/");
+        dbfile = files.file.newFilename+Date.now();
         var oldpath = files.file.filepath;
-        newpath = dir+files.file.newFilename+".pdf";
-        dbfile = files.file.newFilename
+        newpath = dir+dbfile+".pdf";
         mv(oldpath, newpath,fields, async function (err) {
             if (err) throw err;
             var book = await Book.findById(fields.book_id)
