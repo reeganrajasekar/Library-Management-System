@@ -5,9 +5,9 @@ const Lib = require("../models/Lib")
 const Book = require("../models/Book")
 const Staff = require("../models/Staff");
 var nodemailer = require('nodemailer');
-var formidable = require('formidable');
+const multer = require('multer');
 const path = require("path")
-var mv = require('mv');
+
 
 var reset_list = {}
 
@@ -210,35 +210,36 @@ router.post('/', async (req, res)=>{
     }
 });
 
+var storagepic = multer.diskStorage(
+    {
+        destination: 'public/uploads/',
+        filename: function ( req, file, cb ) {
+            cb( null, file.originalname+ '-' + Date.now()+".pdf");
+        }
+    }
+);
 
-router.post('/register', (req, res , next)=>{
-    var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-        var dir = path.join(__dirname,"../public/uploads/");
-        var oldpath = files.idcard.filepath;
-        dbfile = files.idcard.newFilename+Date.now();
-        newpath = dir+dbfile+".jpg";
-        mv(oldpath, newpath,fields, async function (err) {
-            if (err) throw err;
-            var student = await Student({
-            student_name : fields.student_name,
-            student_id : fields.student_id ,
-            student_email :fields.student_email ,
-            student_password : fields.student_password,
-            dept : fields.dept,
-            file:dbfile,
-            access : false,
+var uploadpic = multer( { storage: storagepic } );
+router.post('/register',upload.single('idcard'), async (req, res , next)=>{
+
+    var student = await Student({
+    student_name : fields.student_name,
+    student_id : fields.student_id ,
+    student_email :fields.student_email ,
+    student_password : fields.student_password,
+    dept : fields.dept,
+    file:req.file.filename.slice(0,-4),
+    access : false,
+    })
+    student.save((err,result)=>{
+        if(err){
+            res.json({
+                code:"Student details already exists try login"
             })
-            student.save((err,result)=>{
-                if(err){
-                    res.json({
-                        code:"Student details already exists try login"
-                    })
-                }else{
-                    res.json({code:"registered"})
-                }
-            });
-        })
+        }else{
+            res.json({code:"registered"})
+        }
+
     })
  });
 
@@ -257,42 +258,43 @@ router.get("/lib" , async (req, res)=>{
     res.json(lib)
 });
 
-router.post("/request" , async (req, res)=>{
-    var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-        var dir = path.join(__dirname,"../public/uploads/pdf/");
-        dbfile = files.file.newFilename+Date.now();
-        var oldpath = files.file.filepath;
-        newpath = dir+dbfile+".pdf";
-        mv(oldpath, newpath,fields, async function (err) {
-            if (err) throw err;
-            var book = await Book.findById(fields.book_id)
-            if(book.stock>0){
-                var libs = await Lib({
-                    student_id : fields.student_id,
-                    person_name:fields.student_name,
-                    book_id: fields.book_id,
-                    book_name:fields.book_name,
-                    get_time:fields.gettime,
-                    file:dbfile,
-                    permit:false,
-                    data:"Waiting List"
-                })
-                libs.save()
-                var upbook = await Book.findByIdAndUpdate(fields.book_id , {
-                    stock:book.stock-1
-                })
-                res.json({
-                    code:"Requested"
-                })
-            }else{
-                res.json({
-                    code:"Out of Stock"
-                })
-            }
-        })
-    })
-    
+
+
+var storage = multer.diskStorage(
+    {
+        destination: 'public/uploads/pdf/',
+        filename: function ( req, file, cb ) {
+            cb( null, file.originalname+ '-' + Date.now()+".pdf");
+        }
+    }
+);
+
+var upload = multer( { storage: storage } );
+router.post("/request" ,upload.single('file'), async (req, res ,next)=>{
+        var book = await Book.findById(req.body.book_id)
+        if(book.stock>0){
+            var libs = await Lib({
+                student_id : req.body.student_id,
+                person_name:req.body.student_name,
+                book_id: req.body.book_id,
+                book_name:req.body.book_name,
+                get_time:req.body.gettime,
+                file:req.file.filename.slice(0,-4),
+                permit:false,
+                data:"Waiting List"
+            })
+            libs.save()
+            var upbook = await Book.findByIdAndUpdate(req.body.book_id , {
+                stock:book.stock-1
+            })
+            res.json({
+                code:"Requested"
+            })
+        }else{
+            res.json({
+                code:"Out of Stock"
+            })
+        }   
 });
 
 module.exports = router;
