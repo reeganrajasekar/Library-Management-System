@@ -56,11 +56,12 @@
       <th style="color:tomato !important">Staff Name</th>
       <th style="color:tomato !important">Staff Email</th>
       <th style="color:tomato !important">Department</th>
+      <th style="color:tomato !important">ID Card</th>
       <th style="color:tomato !important">Action</th>
     </tr>
     <% if(staffs[0]){ %>
       <tr>
-        <td colspan="5" class="table-secondary" style="color: tomato;font-size: 22px;text-align: left;"><b>Waiting List</b></td>
+        <td colspan="6" class="table-secondary" style="color: tomato;font-size: 22px;text-align: left;"><b>Waiting List</b></td>
       </tr>
     <% } %>
     <% staffs.map((staff)=>{ %>
@@ -69,6 +70,7 @@
         <td><%= staff.staff_name %></td>
         <td><%= staff.staff_email %></td>
         <td><%= staff.dept %></td>
+        <td><a target="_blank" href="/uploads/<%= staff.file %>.jpg">Click here</a></td>
         <td>
           <div style="display: flex;justify-content: space-evenly;align-items: center;">
             <form action="/staff/access" method="post" onsubmit="return confirm('Do you Want to give access?')">
@@ -96,7 +98,7 @@
 
     <% if(staffsList[0]){ %>
       <tr>
-        <td colspan="5" class="table-secondary" style="color: tomato;font-size: 22px;text-align: left;"><b>Staff List</b></td>
+        <td colspan="6" class="table-secondary" style="color: tomato;font-size: 22px;text-align: left;"><b>Staff List</b></td>
       </tr>
     <% } %>
     <% staffsList.map((staff)=>{ %>
@@ -105,6 +107,7 @@
         <td><%= staff.staff_name %></td>
         <td><%= staff.staff_email %></td>
         <td><%= staff.dept %></td>
+        <td><a target="_blank" href="/uploads/<%= staff.file %>.jpg">Click here</a></td>
         <td>
           <div style="display: flex;justify-content: space-evenly;align-items: center;">
 

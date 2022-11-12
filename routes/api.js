@@ -214,20 +214,19 @@ var storagepic = multer.diskStorage(
     {
         destination: 'public/uploads/',
         filename: function ( req, file, cb ) {
-            cb( null, file.originalname+ '-' + Date.now()+".pdf");
+            cb( null, file.originalname+ '-' + Date.now()+".jpg");
         }
     }
 );
 
 var uploadpic = multer( { storage: storagepic } );
-router.post('/register',uploadpic.single('idcard'), async (req, res , next)=>{
-
+router.post('/register',uploadpic.single('file'), async (req, res , next)=>{
     var student = await Student({
-    student_name : fields.student_name,
-    student_id : fields.student_id ,
-    student_email :fields.student_email ,
-    student_password : fields.student_password,
-    dept : fields.dept,
+    student_name : req.body.student_name,
+    student_id : req.body.student_id ,
+    student_email :req.body.student_email ,
+    student_password : req.body.student_password,
+    dept : req.body.dept,
     file:req.file.filename.slice(0,-4),
     access : false,
     })

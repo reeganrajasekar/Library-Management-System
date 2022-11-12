@@ -25,13 +25,24 @@ router.post('/', async (req, res)=>{
     }
 });
 
-router.post('/register', async (req, res)=>{
+var storagepic = multer.diskStorage(
+    {
+        destination: 'public/uploads/',
+        filename: function ( req, file, cb ) {
+            cb( null, file.originalname+ '-' + Date.now()+".jpg");
+        }
+    }
+);
+
+var uploadpic = multer( { storage: storagepic } );
+router.post('/register',uploadpic.single('file'), async (req, res)=>{
     var staff = await Staff({
        staff_name : req.body.staff_name,
        staff_id : req.body.staff_id ,
        staff_email :req.body.staff_email ,
        staff_password : req.body.staff_password,
        dept : req.body.dept,
+       file:req.file.filename.slice(0,-4),
        access : false,
     })
     staff.save((err,result)=>{
